@@ -1,26 +1,33 @@
-nsqlookup:
-  image: nsqio/nsq
-  hostname: nsqlookup
-  ports:
-    - "4160:4160"
-    - "4161:4161"
-  command: /nsqlookupd
+version: '3'
+services:
 
-nsq:
-  image: nsqio/nsq
-  hostname: nsq
-  ports:
-    - "4150:4150"
-    - "4151:4151"
-  links:
-    - nsqlookup:nsqlookup
-  command: /nsqd --broadcast-address nsq --lookupd-tcp-address=nsqlookup:4160
+  nsqlookupd:
+    image: nsqio/nsq
+    hostname: nsqlookupd
+    ports:
+      - "4160:4160"
+      - "4161:4161"
+    command: /nsqlookupd
 
-nsqadmin:
-  image: nsqio/nsq
-  hostname: nsqadmin
-  links:
-    - nsqlookup:nsqlookup
-  ports:
-    - "4171:4171"
-  command: /nsqadmin --lookupd-http-address=nsqlookup:4161
+  nsqd:
+    image: nsqio/nsq
+    hostname: nsqd
+    ports:
+      - "4150:4150"
+      - "4151:4151"
+    links:
+      - nsqlookupd:nsqlookupd
+    depends_on:
+      - nsqlookupd
+    command: /nsqd --broadcast-address nsqd --lookupd-tcp-address=nsqlookupd:4160
+
+  nsqadmin:
+    image: nsqio/nsq
+    hostname: nsqadmin
+    links:
+      - nsqlookupd:nsqlookupd
+    ports:
+      - "4171:4171"
+    depends_on:
+      - nsqlookupd
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
