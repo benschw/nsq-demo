@@ -1,5 +1,7 @@
 
 
+NSQ demo repo to try out messaging with NSQ & Go
+
 ## Run NSQ with Docker Compose
 
 Start NSQ
