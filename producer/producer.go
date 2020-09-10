@@ -22,11 +22,14 @@ func main() {
 	}
 
 	config := nsq.NewConfig()
-	producer, _ := nsq.NewProducer("127.0.0.1:4150", config)
-
-	err := producer.Publish("my_topic", []byte(*message))
+	producer, err := nsq.NewProducer("127.0.0.1:4150", config)
 	if err != nil {
-		log.Panic("Could not connect")
+		log.Fatal(err)
+	}
+
+	err = producer.Publish(*topic, []byte(*message))
+	if err != nil {
+		log.Fatal("Could not connect")
 	}
 
 	producer.Stop()
