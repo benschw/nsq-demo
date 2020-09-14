@@ -9,6 +9,7 @@ import (
 )
 
 var (
+	addr    = flag.String("addr", "localhost:4150", "NSQ lookupd addr")
 	topic   = flag.String("topic", "", "NSQ topic")
 	message = flag.String("message", "", "Message body")
 )
@@ -22,14 +23,14 @@ func main() {
 	}
 
 	config := nsq.NewConfig()
-	producer, err := nsq.NewProducer("127.0.0.1:4150", config)
+	producer, err := nsq.NewProducer(*addr, config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	err = producer.Publish(*topic, []byte(*message))
 	if err != nil {
-		log.Fatal("Could not connect")
+		log.Fatalf("Could not connect to %s", *addr)
 	}
 
 	producer.Stop()

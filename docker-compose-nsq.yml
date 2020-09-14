@@ -15,19 +15,11 @@ services:
     ports:
       - "4150:4150"
       - "4151:4151"
-    links:
-      - nsqlookupd:nsqlookupd
-    depends_on:
-      - nsqlookupd
-    command: /nsqd --broadcast-address nsqd --lookupd-tcp-address=nsqlookupd:4160
+    command: /nsqd -broadcast-address=nsqd --lookupd-tcp-address=nsqlookupd:4160
 
   nsqadmin:
     image: nsqio/nsq
     hostname: nsqadmin
-    links:
-      - nsqlookupd:nsqlookupd
     ports:
       - "4171:4171"
-    depends_on:
-      - nsqlookupd
     command: /nsqadmin --lookupd-http-address=nsqlookupd:4161

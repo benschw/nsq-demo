@@ -11,6 +11,7 @@ import (
 )
 
 var (
+	addr    = flag.String("addr", "localhost:4161", "NSQ lookupd addr")
 	topic   = flag.String("topic", "", "NSQ topic")
 	channel = flag.String("channel", "", "NSQ channel")
 )
@@ -40,9 +41,11 @@ func main() {
 
 	consumer.AddHandler(&MyHandler{})
 
-	err = consumer.ConnectToNSQLookupd("127.0.0.1:4161")
+	//err = consumer.ConnectToNSQD("nsqd:4150")
+	err = consumer.ConnectToNSQLookupd(*addr)
 	if err != nil {
-		log.Fatal("Could not connect")
+		log.Fatal(err)
+		log.Fatalf("Could not connect to nsqlookupd %s", *addr)
 	}
 
 	// wait for signal to exit
