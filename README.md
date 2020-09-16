@@ -13,7 +13,7 @@ Browse to the admin UI: http://localhost:4171/
 
 ## Examples
     
-build a for linux so we can run in docker
+build for linux so we can run in docker
     
     GOOS=linux GOARCH=amd64 go build -o consumer
 

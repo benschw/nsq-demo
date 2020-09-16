@@ -16,22 +16,26 @@ var (
 
 func main() {
 
+	// parse the cli options
 	flag.Parse()
 	if *topic == "" || *message == "" {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
 
+	// configure a new Producer
 	config := nsq.NewConfig()
 	producer, err := nsq.NewProducer(*addr, config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// publish a nessage to the producer
 	err = producer.Publish(*topic, []byte(*message))
 	if err != nil {
 		log.Fatalf("Could not connect to %s", *addr)
 	}
 
+	// disconnect
 	producer.Stop()
 }
