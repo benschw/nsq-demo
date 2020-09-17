@@ -1,13 +1,8 @@
 version: '3'
 services:
-  consumer_a:
-    image: alpine
-    volumes:
-      - "./:/app"
-    command: /app/consumer -addr nsqlookupd:4161 -topic test -channel foo
-
-  consumer_b:
-    image: alpine
-    volumes:
-      - "./:/app"
-    command: /app/consumer -addr nsqlookupd:4161 -topic test -channel foo
+  worker1:
+    image: nsq-consumer
+    command: /app/consumer -topic test -channel foo
+  worker2:
+    image: nsq-consumer
+    command: /app/consumer -topic test -channel foo

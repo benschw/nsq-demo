@@ -1,0 +1,5 @@
+version: '3'
+services:
+  consumer:
+    image: nsq-consumer
+    command: /app/consumer -topic test -channel foo

@@ -13,9 +13,9 @@ Browse to the admin UI: http://localhost:4171/
 
 ## Examples
     
-build for linux so we can run in docker
+build a docker container with our consumer app in it
     
-    GOOS=linux GOARCH=amd64 go build -o consumer
+    docker build -t nsq-consumer -f Dockerfile-consumer .
 
 ### Worker
 
@@ -23,13 +23,12 @@ Start the docker compose example with 2 subscribers to the foo channel
 
     docker-compose -f docker-compose-worker.yml up
 
-
 Publish a few messages:
 
-	go run producer/producer.go -topic test -message "hello world"
-	go run producer/producer.go -topic test -message "hello world"
-	go run producer/producer.go -topic test -message "hello world"
-	go run producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
 
 Each message gets processed by one or the other consumer, but is only received once.
 
@@ -41,10 +40,10 @@ Start the docker compose example with 2 subscribers to the foo channel, and 2 to
     
 Publish a few messages:
 
-	go run producer/producer.go -topic test -message "hello world"
-	go run producer/producer.go -topic test -message "hello world"
-	go run producer/producer.go -topic test -message "hello world"
-	go run producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic test -message "hello world"
 
 
 Each channel gets its own copy of each message, but is only delivered to one consumer for each channel
