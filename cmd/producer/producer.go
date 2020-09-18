@@ -33,7 +33,7 @@ func main() {
 	// publish a nessage to the producer
 	err = producer.Publish(*topic, []byte(*message))
 	if err != nil {
-		log.Fatalf("Could not connect to %s", *addr)
+		log.Fatal(err)
 	}
 
 	// disconnect

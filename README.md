@@ -25,10 +25,10 @@ Start the docker compose example with 2 subscribers to the foo channel
 
 Publish a few messages:
 
-	go run cmd/producer/producer.go -topic test -message "hello world"
-	go run cmd/producer/producer.go -topic test -message "hello world"
-	go run cmd/producer/producer.go -topic test -message "hello world"
-	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic email -message "hello world"
+	go run cmd/producer/producer.go -topic email -message "hello world"
+	go run cmd/producer/producer.go -topic email -message "hello world"
+	go run cmd/producer/producer.go -topic email -message "hello world"
 
 Each message gets processed by one or the other consumer, but is only received once.
 
@@ -40,10 +40,10 @@ Start the docker compose example with 2 subscribers to the foo channel, and 2 to
     
 Publish a few messages:
 
-	go run cmd/producer/producer.go -topic test -message "hello world"
-	go run cmd/producer/producer.go -topic test -message "hello world"
-	go run cmd/producer/producer.go -topic test -message "hello world"
-	go run cmd/producer/producer.go -topic test -message "hello world"
+	go run cmd/producer/producer.go -topic orders_placed -message "order 123"
+	go run cmd/producer/producer.go -topic orders_placed -message "order 124"
+	go run cmd/producer/producer.go -topic orders_placed -message "order 125"
+	go run cmd/producer/producer.go -topic orders_placed -message "order 126"
 
 
 Each channel gets its own copy of each message, but is only delivered to one consumer for each channel
