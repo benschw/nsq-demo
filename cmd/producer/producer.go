@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	addr    = flag.String("addr", "localhost:4150", "NSQ lookupd addr")
+	addr    = flag.String("addr", "localhost:4150", "NSQ addr")
 	topic   = flag.String("topic", "", "NSQ topic")
 	message = flag.String("message", "", "Message body")
 )
